@@ -21,7 +21,5 @@ services:
         sync: false
       - key: CLIENT_URL
         sync: false
-      - key: VITE_SERVER_URL
-        value: ""
       - key: VITE_FIREBASE_APIKEY
         sync: false

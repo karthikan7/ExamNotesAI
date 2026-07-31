@@ -9,7 +9,9 @@ import Notes from './pages/Notes'
 import Pricing from './pages/Pricing'
 import PaymentSuccess from './pages/PaymentSuccess'
 import PaymentFailed from './pages/PaymentFailed'
-export const serverUrl = import.meta.env.VITE_SERVER_URL || "http://localhost:8000"
+// In production (Render), frontend & backend are on the same server — use relative URLs
+// In development, point to localhost:8000
+export const serverUrl = import.meta.env.VITE_SERVER_URL ?? ""
 
 function App() {
   const dispatch = useDispatch()
