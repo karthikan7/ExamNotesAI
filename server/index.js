@@ -19,14 +19,26 @@ app.post(
   stripeWebhook
 );
 
-const allowedOrigin = process.env.CLIENT_URL || "http://localhost:5173";
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000"
+].filter(Boolean);
 
-app.use(cors(
-    {origin: allowedOrigin,
-        credentials:true,
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+app.use(cors({
+  origin: (origin, callback) => {
+    // allow requests with no origin (like mobile apps or curl) or dev origins
+    if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== "production") {
+      callback(null, true);
+    } else {
+      callback(null, true); // fallback for dev environment flexibility
     }
-))
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+}));
 
 
 

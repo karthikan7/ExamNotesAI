@@ -9,20 +9,30 @@ import { useDispatch } from 'react-redux';
 import { setUserData } from '../redux/userSlice';
 function Auth() {
   const dispatch = useDispatch()
+  const [authError, setAuthError] = React.useState("")
 
   const handleGoogleAuth = async () => {
-    
+    setAuthError("")
     try {
-      const response = await signInWithPopup(auth,provider)
+      const response = await signInWithPopup(auth, provider)
       const User = response.user
-      const name = User.displayName
+      const name = User.displayName || User.email.split("@")[0]
       const email = User.email
-      const result = await axios.post(serverUrl + "/api/auth/google" , {name , email},{
-        withCredentials:true
+      const result = await axios.post(serverUrl + "/api/auth/google", { name, email }, {
+        withCredentials: true
       })
       dispatch(setUserData(result.data))
     } catch (error) {
-      console.log(error)
+      console.error("Google Auth Error:", error)
+      if (error.code === "auth/popup-closed-by-user") {
+        setAuthError("Sign-in popup was closed before completing.")
+      } else if (error.code === "auth/popup-blocked") {
+        setAuthError("Sign-in popup was blocked by your browser. Please allow popups for localhost.")
+      } else if (error.code === "auth/unauthorized-domain") {
+        setAuthError("Domain not authorized in Firebase Console -> Authentication -> Settings -> Authorized domains.")
+      } else {
+        setAuthError(error.message || "Failed to sign in with Google.")
+      }
     }
   }
   return (
@@ -77,9 +87,13 @@ function Auth() {
               shadow-[0_25px_60px_rgba(0,0,0,0.7)]'>
                 <FcGoogle size={22}/>
                 Continue with Google
-
-
               </motion.button>
+
+              {authError && (
+                <div className="mt-4 p-3 rounded-lg bg-red-100 border border-red-300 text-red-700 text-sm max-w-md">
+                  ⚠️ {authError}
+                </div>
+              )}
 
               <p className=' mt-6 max-w-xl text-lg
               bg-gradient-to-br from-gray-700 via-gray-500/80 to-gray-700
