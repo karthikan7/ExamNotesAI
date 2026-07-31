@@ -14,7 +14,7 @@ const isAuth = async (req,res,next) => {
         next()
 
     } catch (error) {
-        return res.status(500).json({message:`is auth error ${error}`})
+        return res.status(401).json({ message: "Authentication failed. Please log in again.", error: error.message });
     }
 }
-export default isAuth
+export default isAuth;
