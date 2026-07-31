@@ -64,7 +64,8 @@ app.get("/{*path}", (req, res) => {
   res.sendFile(path.join(clientDistPath, "index.html"))
 })
 
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`)
-  connectDb()
+connectDb().then(() => {
+  app.listen(PORT, () => {
+    console.log(`✅ Server running on port ${PORT}`)
+  })
 })
