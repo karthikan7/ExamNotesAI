@@ -59,8 +59,8 @@ app.use("/api/credit", creditRouter)
 const clientDistPath = path.join(__dirname, "../client/dist")
 app.use(express.static(clientDistPath))
 
-// SPA fallback — serve index.html for all non-API routes
-app.get("*", (req, res) => {
+// SPA fallback — serve index.html for all non-API routes (Express 5 syntax)
+app.get("/{*path}", (req, res) => {
   res.sendFile(path.join(clientDistPath, "index.html"))
 })
 
