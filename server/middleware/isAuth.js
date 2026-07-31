@@ -6,7 +6,8 @@ const isAuth = async (req,res,next) => {
         if(!token){
             return res.status(400).json({message:"Token is not found"})
         }
-        let verifyToken = jwt.verify(token ,process.env.JWT_SECRET )
+        const secret = process.env.JWT_SECRET || "examnotes_ai_secure_jwt_secret_key_2026_x89f";
+        let verifyToken = jwt.verify(token, secret);
         if(!verifyToken){
             return res.status(400).json({message:"user doesn't have valid token"})
         }
