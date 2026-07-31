@@ -31,7 +31,8 @@ function Auth() {
       } else if (error.code === "auth/unauthorized-domain") {
         setAuthError("Domain not authorized in Firebase Console -> Authentication -> Settings -> Authorized domains.")
       } else {
-        setAuthError(error.response?.data?.message || error.message || "Failed to sign in with Google.")
+        const serverMsg = error.response?.data?.message || error.response?.data?.error || (typeof error.response?.data === 'string' ? error.response.data : null);
+        setAuthError(serverMsg || error.message || "Failed to sign in with Google.");
       }
     }
   }
