@@ -46,9 +46,9 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
 
 
     } catch (error) {
-   console.log(error)
-   setError("Failed to fetch notes from server");
-      setLoading(false)
+       console.error("Notes Generation Error:", error)
+       setError(typeof error === "string" ? error : "Failed to fetch notes from server");
+       setLoading(false)
     }
   }
 
