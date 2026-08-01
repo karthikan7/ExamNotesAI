@@ -30,31 +30,25 @@ Include Diagram: ${includeDiagram ? "YES" : "NO"}
 Include Charts: ${includeChart ? "YES" : "NO"}
 
 GLOBAL CONTENT RULES:
-- Use clear, simple, exam-oriented language
-- Notes MUST be Markdown formatted
-- Headings and bullet points only
+- Use clear, professional, exam-oriented, high-scoring academic language
+- Notes MUST be beautifully formatted in Markdown
+- Use clear subheadings (###), bold text (**concept**), bullet points, and clean spacing
+- Include clear examples, standard formulas/equations, and key terms
+- Avoid block text; structure the notes for fast reading and maximum recall
 
 REVISION MODE RULES (CRITICAL):
 - If REVISION MODE is ON:
-  - Notes must be VERY SHORT
-  - Only bullet points
-  - One-line answers only
-  - Definitions, formulas, keywords
-  - No paragraphs
-  - No explanations
-  - Content must feel like:
-    - last-day revision
-    - 5-minute exam cheat sheet
-  - revisionPoints MUST summarize ALL important facts
+  - Notes must be concise, bulleted revision guides
+  - Strictly bullet points with high-density explanations
+  - Highlight definitions, formulas, keywords, and core highlights
+  - Content must feel like last-day revision or a 5-minute exam cheat sheet
+  - revisionPoints MUST summarize ALL crucial definitions and facts
 
 - If REVISION MODE is OFF:
-  - Notes must be DETAILED but exam-focused
-  - Each topic should include:
-    - definition
-    - short explanation
-    - examples (if applicable)
-  - Paragraph length: max 2–4 lines
-  - No storytelling, no extra theory
+  - Notes must be DETAILED, comprehensive, and highly structured
+  - Each concept should include a clear definition, a short technical explanation, and real-world examples (where applicable)
+  - Paragraphs should be concise (max 2–4 lines) but contain rich academic detail
+  - Avoid fluff, storytelling, or filler content; focus strictly on syllabus topics
 
 IMPORTANCE RULES:
 - Divide sub-topics into THREE categories:

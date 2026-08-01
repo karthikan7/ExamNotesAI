@@ -108,7 +108,7 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
         border border-white/20
         placeholder-gray-400
         text-white
-        focus:outline-none focus:ring-2 focus:ring-white/30' placeholder='Enter topic (e.g. Web Development)'
+        focus:outline-none focus:ring-2 focus:ring-white/30' placeholder='Enter topic'
         onChange={(e) => setTopic(e.target.value)}
         value={topic}
       />
@@ -118,7 +118,7 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
         placeholder-gray-400
         text-white
         focus:outline-none focus:ring-2 focus:ring-white/30'
-        placeholder='Class / Level (e.g. Class 10)'
+        placeholder='Class / Level'
         onChange={(e) => setClassLevel(e.target.value)}
         value={classLevel}
       />
@@ -128,7 +128,7 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
         placeholder-gray-400
         text-white
         focus:outline-none focus:ring-2 focus:ring-white/30'
-        placeholder='Exam Type (e.g. CBSE, JEE, NEET)'
+        placeholder='Learning for'
         onChange={(e) => setExamType(e.target.value)}
         value={examType}
       />
