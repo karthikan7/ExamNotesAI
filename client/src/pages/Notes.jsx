@@ -15,9 +15,9 @@ function Notes() {
   const [error, setError] = useState("")
 
   return (
-    <div className='min-h-screen bg-[#080808] text-white px-6 py-8'
+    <div className='min-h-screen bg-[#09090b] text-white px-6 py-8'
       style={{
-        backgroundImage: `radial-gradient(ellipse at 40% 15%, rgba(99,102,241,0.07) 0%, transparent 60%)`
+        backgroundImage: `radial-gradient(ellipse at 40% 15%, rgba(99,102,241,0.08) 0%, transparent 60%)`
       }}
     >
       <motion.header
@@ -76,7 +76,7 @@ function Notes() {
       )}
 
       {error && (
-        <div className="mb-6 text-center text-red-400 text-xs font-medium bg-red-500/10 border border-red-500/20 p-3 rounded-xl max-w-lg mx-auto">
+        <div className="mb-6 text-center text-red-400 text-xs font-medium bg-red-500/10 border border-red-500/20 p-3.5 rounded-xl max-w-lg mx-auto">
           ⚠️ {error}
         </div>
       )}
