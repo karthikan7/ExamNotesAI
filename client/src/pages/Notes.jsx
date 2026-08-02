@@ -5,74 +5,63 @@ import { useSelector } from 'react-redux'
 import TopicForm from '../components/TopicForm'
 import Sidebar from '../components/Sidebar'
 import FinalResult from '../components/FinalResult'
+
 function Notes() {
   const navigate = useNavigate()
   const { userData } = useSelector((state) => state.user)
   const credits = userData?.credits ?? 0
-  const [loading,setLoading]= useState(false)
-  const [result , setResult] = useState(null)
-  const [error,setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [result, setResult] = useState(null)
+  const [error, setError] = useState("")
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 px-6 py-8'>
+    <div className='min-h-screen bg-[#080808] text-white px-6 py-8'
+      style={{
+        backgroundImage: `radial-gradient(ellipse at 40% 15%, rgba(99,102,241,0.07) 0%, transparent 60%)`
+      }}
+    >
       <motion.header
         initial={{ opacity: 0, y: -15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-
-        className=" mb-10
-            rounded-2xl
-            bg-black/80 backdrop-blur-xl
-            border border-white/10
-            px-8 py-6
-            shadow-[0_20px_45px_rgba(0,0,0,0.6)] items-start
-            flex md:items-center justify-between gap-4 flex-col md:flex-row"
+        className="mb-10 rounded-2xl
+          bg-white/[0.03] backdrop-blur-xl
+          border border-white/[0.08]
+          px-8 py-5 items-start
+          flex md:items-center justify-between gap-4 flex-col md:flex-row
+          shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
       >
-        <div onClick={() => navigate("/")} className='cursor-pointer'><h1 className='text-2xl font-bold
-            bg-linear-to-r from-white via-gray-300 to-white
-            bg-clip-text text-transparent'>ExamNotes AI</h1>
-          <p className='text-sm text-gray-300 mt-1'>AI-powered exam-oriented notes & revision</p></div>
-
-        <div className='flex items-center gap-4 flex-wrap'>
-          <button className='flex items-center gap-2 
-    px-4 py-2 rounded-full
-    bg-white/10
-    border border-white/20
-    text-white text-sm' onClick={() => navigate("/pricing")}>
-            <span className='text-xl'>💠</span>
-            <span>{credits}</span>
-            <motion.span whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.97 }}
-              className='ml-2 h-5 w-5 flex items-center justify-center
-                        rounded-full bg-white  text-xs font-bold'
-            >
-              ➕
-
-            </motion.span>
-
-
-          </button>
-          <button onClick={()=>navigate("/history")} className='px-4 py-3 rounded-full
-      text-sm font-medium
-      bg-white/10
-      border border-white/20
-      text-white
-      hover:bg-white/20
-      transition
-      flex items-center gap-2'>
-        📚 Your Notes
-
-
-          </button>
+        <div onClick={() => navigate("/")} className='cursor-pointer'>
+          <h1 className='text-xl font-bold text-white'>ExamNotes <span className='text-indigo-400'>AI</span></h1>
+          <p className='text-xs text-gray-400 mt-0.5'>AI-powered exam-oriented notes & revision</p>
         </div>
 
+        <div className='flex items-center gap-4 flex-wrap'>
+          <button
+            className='flex items-center gap-2 px-4 py-2 rounded-full
+              bg-white/[0.06] border border-white/[0.12]
+              hover:border-indigo-500/40 text-white text-xs font-medium transition-all cursor-pointer'
+            onClick={() => navigate("/pricing")}
+          >
+            <span className='text-base'>💠</span>
+            <span>{credits}</span>
+            <span className='ml-1 h-4 w-4 flex items-center justify-center rounded-full bg-indigo-600 text-white text-[10px] font-bold'>+</span>
+          </button>
 
+          <button
+            onClick={() => navigate("/history")}
+            className='px-4 py-2 rounded-full text-xs font-medium
+              bg-white/[0.06] border border-white/[0.12]
+              hover:bg-white/[0.12] text-white transition flex items-center gap-2 cursor-pointer'
+          >
+            📚 Your Notes
+          </button>
+        </div>
       </motion.header>
-
 
       {!result && (
         <motion.div className="mb-12">
-          <TopicForm loading={loading} setResult={setResult} setLoading={setLoading} setError={setError}/>
+          <TopicForm loading={loading} setResult={setResult} setLoading={setLoading} setError={setError} />
         </motion.div>
       )}
 
@@ -80,32 +69,32 @@ function Notes() {
         <motion.div
           animate={{ opacity: [0.4, 1, 0.4] }}
           transition={{ repeat: Infinity, duration: 1.2 }}
-          className="text-center text-black font-medium mb-6"
+          className="text-center text-indigo-300 font-medium text-xs mb-6"
         >
           Generating exam-focused notes…
         </motion.div>
       )}
 
       {error && (
-        <div className="mb-6 text-center text-red-600 font-medium">
-          {error}
+        <div className="mb-6 text-center text-red-400 text-xs font-medium bg-red-500/10 border border-red-500/20 p-3 rounded-xl max-w-lg mx-auto">
+          ⚠️ {error}
         </div>
       )}
 
       {!result && !loading && (
-        <motion.div whileHover={{ scale: 1.02 }}
+        <motion.div
+          whileHover={{ scale: 1.01 }}
           className="
             h-64
             rounded-2xl
             flex flex-col items-center justify-center
-            bg-white/60 backdrop-blur-lg
-            border border-dashed border-gray-300
+            bg-white/[0.02] backdrop-blur-lg
+            border border-dashed border-white/[0.1]
             text-gray-500
-            shadow-inner
           "
         >
-          <span className="text-4xl mb-3">📘</span>
-          <p className="text-sm">
+          <span className="text-4xl mb-3 opacity-60">📘</span>
+          <p className="text-xs text-gray-400">
             Generated notes will appear here
           </p>
         </motion.div>
@@ -124,15 +113,15 @@ function Notes() {
                 setResult(null);
                 setError("");
               }}
-              className='w-full py-3 px-4 rounded-xl bg-black text-white font-medium text-sm hover:bg-gray-800 transition flex items-center justify-center gap-2 shadow-md cursor-pointer'
+              className='w-full py-3 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20 cursor-pointer'
             >
-              ⬅️ Generate New Notes
+              ← Generate New Notes
             </button>
-            <Sidebar result={result}/>
+            <Sidebar result={result} />
           </div>
 
-          <div className='lg:col-span-3 rounded-2xl bg-white shadow-[0_15px_40px_rgba(0,0,0,0.15)] p-6'>
-            <FinalResult result={result}/>
+          <div className='lg:col-span-3 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.6)] p-6'>
+            <FinalResult result={result} />
           </div>
         </motion.div>
       )}

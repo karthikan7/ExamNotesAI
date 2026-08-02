@@ -3,53 +3,56 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from "motion/react"
 import axios from 'axios';
 import { serverUrl } from '../App';
+
 function Pricing() {
   const navigate = useNavigate()
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [paying, setPaying] = useState(false);
-const [payingAmount, setPayingAmount] = useState(null);
+  const [payingAmount, setPayingAmount] = useState(null);
 
-const handlePaying = async (amount) => {
-  try {
-    setPayingAmount(amount)
-    setPaying(true)
-    const result = await axios.post(serverUrl + "/api/credit/order" , {amount} , {withCredentials:true})
+  const handlePaying = async (amount) => {
+    try {
+      setPayingAmount(amount)
+      setPaying(true)
+      const result = await axios.post(serverUrl + "/api/credit/order", { amount }, { withCredentials: true })
 
-    if(result.data.url){
-      window.location.href = result.data.url
+      if (result.data.url) {
+        window.location.href = result.data.url
+      }
+      setPaying(false)
+    } catch (error) {
+      setPaying(false)
+      console.log(error)
     }
-
-        setPaying(false)
-
-
-
-  } catch (error) {
-        setPaying(false)
-        console.log(error)
   }
-}
-  return (
-    <div className='min-h-screen bg-gray-100 px-6 py-10 relative'>
 
-      <button onClick={()=>navigate("/")} className='flex items-center gap-2 text-gray-600 hover:text-black mb-6'>
-        ⬅️ Back
+  return (
+    <div className='min-h-screen bg-[#080808] text-white px-6 py-10 relative'
+      style={{
+        backgroundImage: `radial-gradient(ellipse at 50% 20%, rgba(99,102,241,0.08) 0%, transparent 60%)`
+      }}
+    >
+      <button
+        onClick={() => navigate("/")}
+        className='flex items-center gap-2 text-xs text-gray-400 hover:text-white transition-colors mb-8 cursor-pointer'
+      >
+        ← Back to Home
       </button>
 
-      <motion.div 
-      initial={{ opacity: 0, y: -10 }}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-10">
-          <h1 className="text-3xl font-bold">Buy Credits</h1>
-        <p className="text-gray-600 mt-2">
-          Choose a plan that fits your study needs
+        className="text-center mb-12"
+      >
+        <h1 className="text-3xl font-bold tracking-tight text-white">Buy Credits</h1>
+        <p className="text-gray-400 text-sm mt-2">
+          Choose a plan that fits your study & revision needs
         </p>
-
       </motion.div>
 
       <div className='max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6'>
-
-        <PricingCard 
-        title="Starter"
+        <PricingCard
+          title="Starter"
           price="₹100"
           amount={100}
           credits="50 Credits"
@@ -65,10 +68,9 @@ const handlePaying = async (amount) => {
           onBuy={handlePaying}
           paying={paying}
           payingAmount={payingAmount}
-         />
+        />
 
-
-          <PricingCard
+        <PricingCard
           popular
           title="Popular"
           price="₹200"
@@ -106,14 +108,10 @@ const handlePaying = async (amount) => {
           paying={paying}
           payingAmount={payingAmount}
         />
-
       </div>
-
-      
     </div>
   )
 }
-
 
 function PricingCard({
   title,
@@ -128,68 +126,76 @@ function PricingCard({
   onBuy,
   paying,
   payingAmount
-}){
+}) {
+  const isSelected = selectedPrice === amount;
+  const isPayingThisCard = paying && payingAmount === amount;
 
-    const isSelected = selectedPrice === amount;
-const isPayingThisCard = paying && payingAmount === amount;
-return(
-  
-  <motion.div  
-  onClick={()=>setSelectedPrice(amount)}
-  whileHover={{ y: -4 }}
+  return (
+    <motion.div
+      onClick={() => setSelectedPrice(amount)}
+      whileHover={{ y: -4 }}
       className={`
         relative cursor-pointer
-        rounded-xl p-6 bg-white
-        border transition
+        rounded-2xl p-6
+        bg-white/[0.03] backdrop-blur-xl
+        border transition-all duration-300
         ${isSelected
-          ? "border-black"
+          ? "border-indigo-500 shadow-[0_0_30px_rgba(99,102,241,0.2)]"
           : popular
-          ? "border-indigo-500"
-          : "border-gray-200"}
-      `}>
-       {popular && !isSelected && <span className='absolute top-4 right-4 text-xs px-2 py-1 rounded bg-indigo-600 text-white'>Popular</span>}
+          ? "border-indigo-500/40"
+          : "border-white/[0.08] hover:border-white/[0.15]"
+        }
+      `}
+    >
+      {popular && !isSelected && (
+        <span className='absolute top-4 right-4 text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300'>
+          Popular
+        </span>
+      )}
 
-      {isSelected && <span className='absolute top-4 right-4 text-xs px-2 py-1 rounded bg-black text-white'>
-        Seleted
-       </span>}
+      {isSelected && (
+        <span className='absolute top-4 right-4 text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-600 text-white'>
+          Selected
+        </span>
+      )}
 
+      <h2 className='text-lg font-bold text-white'>{title}</h2>
+      <p className='text-xs text-gray-400 mt-1'>{description}</p>
 
-       <h2 className='text-xl font-semibold'>{title}</h2>
-       <p className='text-sm text-gray-500 mt-1'>{description}</p>
+      <div className='mt-5 mb-6'>
+        <p className="text-3xl font-extrabold text-white">{price}</p>
+        <p className="text-xs font-semibold text-indigo-400 mt-1">{credits}</p>
+      </div>
 
-       <div className='mt-4'>
-        <p className="text-3xl font-bold">{price}</p>
-        <p className="text-sm text-indigo-600">{credits}</p>
-       </div>
-        <button 
+      <button
         disabled={isPayingThisCard}
-
-        onClick={(e)=>{
+        onClick={(e) => {
           e.stopPropagation();
           onBuy(amount)
         }}
         className={`
-          w-full mt-5 py-2 rounded-lg font-medium transition
+          w-full py-2.5 rounded-xl font-semibold text-xs transition-all duration-200 cursor-pointer
           ${isPayingThisCard
-            ? "bg-gray-300 cursor-not-allowed"
-            : isSelected
-            ? "bg-black text-white"
-            : "bg-indigo-600 text-white hover:bg-indigo-700"}
-        `}>
-{isPayingThisCard ? "Redirecting..." : "Buy Now"}
-        </button>
+            ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+            : isSelected || popular
+            ? "bg-indigo-600 hover:bg-indigo-500 text-white shadow-[0_0_20px_rgba(99,102,241,0.4)]"
+            : "bg-white/[0.08] hover:bg-white/[0.12] text-white border border-white/[0.1]"
+          }
+        `}
+      >
+        {isPayingThisCard ? "Redirecting to Stripe..." : "Buy Now"}
+      </button>
 
-        <ul className='mt-5 space-y-2 text-sm text-gray-600'>
-          {features.map((f, i) => (
-          <li key={i} className="flex gap-2">
-            <span className="text-green-600">✓</span>
+      <ul className='mt-6 space-y-2.5 text-xs text-gray-400'>
+        {features.map((f, i) => (
+          <li key={i} className="flex items-center gap-2">
+            <span className="text-emerald-400 font-bold">✓</span>
             {f}
           </li>
         ))}
-        </ul>
-
-  </motion.div>
-)
+      </ul>
+    </motion.div>
+  )
 }
 
 export default Pricing
