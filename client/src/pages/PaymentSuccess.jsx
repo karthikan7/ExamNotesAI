@@ -20,7 +20,7 @@ function PaymentSuccess() {
     }, [])
 
     return (
-        <div className='min-h-screen bg-[#080808] text-white flex flex-col items-center justify-center p-4 gap-4'>
+        <div className='min-h-screen bg-[#000000] text-white flex flex-col items-center justify-center p-4 gap-4'>
             <motion.div
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 360 }}

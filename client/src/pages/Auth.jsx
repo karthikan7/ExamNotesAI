@@ -1,5 +1,4 @@
 import React from 'react'
-import { motion } from "motion/react"
 import { FcGoogle } from "react-icons/fc";
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../utils/firebase';
@@ -39,121 +38,62 @@ function Auth() {
   }
 
   return (
-    <div className='min-h-screen overflow-hidden bg-[#080808] text-white px-8'
-      style={{
-        backgroundImage: `radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.08) 0%, transparent 60%),
-                          radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.06) 0%, transparent 50%)`
-      }}
-    >
-      {/* Header */}
-      <motion.header
-        initial={{ opacity: 0, y: -15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2 }}
-        className="max-w-7xl mx-auto mt-8 rounded-2xl
-          bg-white/[0.03] backdrop-blur-xl
-          border border-white/[0.08]
-          px-8 py-5
-          shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
-      >
-        <div className='flex items-center gap-3'>
-          <div className='w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-sm font-bold'>N</div>
-          <h1 className='text-xl font-bold text-white'>NoteFlow <span className='text-indigo-400'>AI</span></h1>
+    <div className='min-h-screen bg-[#000000] text-white flex flex-col justify-between px-6 py-8'>
+      
+      {/* Top Brand Bar */}
+      <header className='max-w-6xl w-full mx-auto flex items-center justify-between py-2 border-b border-zinc-800/80 pb-4'>
+        <div className='flex items-center gap-2.5'>
+          <div className='w-6 h-6 rounded bg-white text-black font-bold flex items-center justify-center text-xs'>E</div>
+          <span className='text-sm font-semibold tracking-tight text-white'>ExamNotes <span className='text-zinc-400 font-normal'>AI</span></span>
         </div>
-      </motion.header>
+      </header>
 
-      <main className='max-w-7xl mx-auto py-14 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center'>
-
-        {/* LEFT CONTENT */}
-        <motion.div
-          initial={{ opacity: 0, x: -60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7 }}
-        >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className='inline-flex items-center gap-2 px-4 py-1.5 rounded-full
-              bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium mb-6'
-          >
-            <span className='w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse'></span>
-            AI-Powered Study Platform
-          </motion.div>
-
-          <h1 className="text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
-            <span className='text-white'>Unlock </span>
-            <span className='bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent'>
-              Smart
-            </span>
-            <br />
-            <span className='text-white'>AI Notes</span>
-          </h1>
-
-          <p className='mt-6 max-w-xl text-base text-gray-400 leading-relaxed'>
-            Generate exam-focused notes, project documentation,
-            flow diagrams and revision-ready content using AI —
-            faster, cleaner and smarter.
+      {/* Main Login Card */}
+      <main className='max-w-md w-full mx-auto py-12 flex flex-col items-center text-center'>
+        <div className='w-full bg-[#0c0c0c] border border-zinc-800 rounded-2xl p-8 shadow-2xl'>
+          
+          <h1 className='text-2xl font-bold text-white tracking-tight mb-2'>Sign in to ExamNotes AI</h1>
+          <p className='text-xs text-zinc-400 mb-8 leading-relaxed'>
+            Generate exam-focused notes, flowcharts, and PDFs using Google's Gemini AI.
           </p>
 
-          <motion.button
+          <button
             onClick={handleGoogleAuth}
-            whileHover={{ scale: 1.03, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className='mt-10 px-8 py-3.5 rounded-xl
-              flex items-center gap-3
-              bg-white text-black font-semibold text-base
-              shadow-[0_0_40px_rgba(255,255,255,0.1)]
-              hover:shadow-[0_0_50px_rgba(255,255,255,0.2)]
-              transition-shadow duration-300'
+            className='w-full py-3 px-4 rounded-xl bg-white text-black font-semibold text-sm hover:bg-zinc-200 transition-colors flex items-center justify-center gap-3 cursor-pointer shadow-sm'
           >
-            <FcGoogle size={22} />
+            <FcGoogle size={20} />
             Continue with Google
-          </motion.button>
+          </button>
 
           {authError && (
-            <div className="mt-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm max-w-md">
+            <div className="mt-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs text-left">
               ⚠️ {authError}
             </div>
           )}
 
-          <p className='mt-6 max-w-xl text-sm text-gray-500'>
-            Start with <span className="text-indigo-400 font-semibold">50 FREE credits</span> — no card required. Upgrade anytime.
-          </p>
-        </motion.div>
+          <div className='mt-8 pt-6 border-t border-zinc-800/80 text-left space-y-3 text-xs text-zinc-400'>
+            <div className='flex items-center gap-2'>
+              <span className='text-emerald-400 font-bold'>✓</span>
+              <span>50 Free credits on signup (No credit card needed)</span>
+            </div>
+            <div className='flex items-center gap-2'>
+              <span className='text-emerald-400 font-bold'>✓</span>
+              <span>Instant AI notes generation with formula sheets</span>
+            </div>
+            <div className='flex items-center gap-2'>
+              <span className='text-emerald-400 font-bold'>✓</span>
+              <span>Download clean printable PDFs anytime</span>
+            </div>
+          </div>
 
-        {/* RIGHT CONTENT — Feature Cards */}
-        <div className='grid grid-cols-1 sm:grid-cols-2 gap-5'>
-          <Feature icon="🎁" title="50 Free Credits" des="Start with 50 credits to generate notes without paying." />
-          <Feature icon="📘" title="Exam Notes" des="High-yield, revision-ready exam-oriented notes." />
-          <Feature icon="📂" title="Project Notes" des="Well-structured documentation for assignments & projects." />
-          <Feature icon="📊" title="Charts & Graphs" des="Auto-generated diagrams, charts and flow graphs." />
-          <Feature icon="⬇️" title="PDF Download" des="Download clean, printable PDFs instantly." />
         </div>
       </main>
-    </div>
-  )
-}
 
-function Feature({ icon, title, des }) {
-  return (
-    <motion.div
-      whileHover={{ y: -6, scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className='rounded-2xl p-5
-        bg-white/[0.03]
-        border border-white/[0.07]
-        hover:border-indigo-500/30
-        hover:bg-white/[0.05]
-        transition-all duration-300
-        text-white'
-    >
-      <div className="text-3xl mb-3">{icon}</div>
-      <h3 className="text-sm font-semibold text-white mb-1">{title}</h3>
-      <p className="text-gray-500 text-xs leading-relaxed">{des}</p>
-    </motion.div>
+      {/* Footer */}
+      <footer className='max-w-6xl w-full mx-auto text-center text-[11px] text-zinc-600 border-t border-zinc-900 pt-4'>
+        © {new Date().getFullYear()} ExamNotes AI. All rights reserved.
+      </footer>
+    </div>
   )
 }
 

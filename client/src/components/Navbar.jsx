@@ -26,75 +26,45 @@ function Navbar() {
     }
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2 }}
-            className='relative z-20 mx-6 mt-6
-                rounded-2xl
-                bg-white/[0.03] backdrop-blur-xl
-                border border-white/[0.08]
-                shadow-[0_8px_32px_rgba(0,0,0,0.6)]
-                flex items-center justify-between px-8 py-4'
-        >
+        <nav className='w-full bg-[#000000] border-b border-zinc-800/80 px-6 py-3.5 flex items-center justify-between sticky top-0 z-50'>
             <div className='flex items-center gap-3 cursor-pointer' onClick={() => navigate("/")}>
-                <img src={logo} alt="examnotes" className='w-9 h-9 object-contain' />
-                <span className='text-lg hidden md:block font-semibold text-white'>
-                    ExamNotes <span className='text-indigo-400'>AI</span>
+                <img src={logo} alt="ExamNotes AI" className='w-7 h-7 object-contain' />
+                <span className='text-sm font-semibold text-white tracking-tight'>
+                    ExamNotes <span className='text-zinc-400 font-normal'>AI</span>
                 </span>
             </div>
 
-            <div className='flex items-center gap-6 relative'>
+            <div className='flex items-center gap-4 relative'>
                 <div className='relative'>
-                    <motion.div
+                    <button
                         onClick={() => { setShowCredits(!showCredits); setShowProfile(false) }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.97 }}
-                        className='flex items-center justify-center gap-1.5
-                            px-4 py-2 rounded-full
-                            bg-white/[0.06]
-                            border border-white/[0.12]
-                            hover:border-indigo-500/40
-                            text-white text-sm
-                            shadow-md
-                            transition-all duration-200
-                            cursor-pointer'
+                        className='flex items-center gap-2 px-3 py-1.5 rounded-lg
+                            bg-zinc-900 border border-zinc-800 hover:border-zinc-700
+                            text-white text-xs font-medium transition-colors cursor-pointer'
                     >
-                        <span className='text-lg'>💠</span>
-                        <span className='font-medium'>{credits}</span>
-                        <motion.span
-                            whileHover={{ scale: 1.15 }}
-                            whileTap={{ scale: 0.95 }}
-                            className='ml-1.5 h-5 w-5 flex items-center justify-center
-                                rounded-full bg-indigo-600 text-white text-xs font-bold'
-                        >
-                            +
-                        </motion.span>
-                    </motion.div>
+                        <span>💠</span>
+                        <span>{credits} Credits</span>
+                        <span className='ml-1 text-zinc-400 text-[10px]'>+</span>
+                    </button>
 
                     <AnimatePresence>
                         {showCredits && (
                             <motion.div
-                                initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                                animate={{ opacity: 1, y: 10, scale: 1 }}
-                                exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                                transition={{ duration: 0.2 }}
-                                className='absolute right-[-50px] mt-4 w-64
-                                    rounded-2xl
-                                    bg-[#121216] backdrop-blur-xl
-                                    border border-white/[0.1]
-                                    shadow-[0_20px_50px_rgba(0,0,0,0.8)]
-                                    p-4 text-white z-50'
+                                initial={{ opacity: 0, y: 6 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 6 }}
+                                transition={{ duration: 0.15 }}
+                                className='absolute right-0 mt-2 w-60 rounded-xl
+                                    bg-[#0c0c0c] border border-zinc-800
+                                    shadow-2xl p-4 text-white z-50'
                             >
-                                <h4 className='font-semibold text-sm mb-1'>Buy Credits</h4>
-                                <p className='text-xs text-gray-400 mb-4'>Use credits to generate AI notes, diagrams & PDFs.</p>
+                                <h4 className='font-medium text-xs text-white mb-1'>Credit Balance</h4>
+                                <p className='text-[11px] text-zinc-400 mb-3'>You have <strong className='text-white'>{credits} credits</strong> remaining.</p>
                                 <button
                                     onClick={() => { setShowCredits(false); navigate("/pricing") }}
-                                    className='w-full py-2 rounded-xl
-                                        bg-indigo-600 hover:bg-indigo-500
-                                        text-white font-medium text-xs transition-colors'
+                                    className='w-full py-2 rounded-lg bg-white text-black font-semibold text-xs hover:bg-zinc-200 transition-colors cursor-pointer'
                                 >
-                                    Buy More Credits
+                                    Get More Credits
                                 </button>
                             </motion.div>
                         )}
@@ -102,62 +72,44 @@ function Navbar() {
                 </div>
 
                 <div className='relative'>
-                    <motion.div
+                    <button
                         onClick={() => { setShowProfile(!showProfile); setShowCredits(false) }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.97 }}
-                        className='flex items-center justify-center gap-1
-                            w-9 h-9 rounded-full
-                            bg-indigo-600/30
-                            border border-indigo-500/40
-                            text-indigo-200 text-sm font-semibold
-                            shadow-md
-                            cursor-pointer'
+                        className='w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 hover:border-zinc-700
+                            text-white text-xs font-semibold flex items-center justify-center transition-colors cursor-pointer'
                     >
-                        <span>{userData?.name?.slice(0, 1)?.toUpperCase() || "U"}</span>
-                    </motion.div>
+                        {userData?.name?.slice(0, 1)?.toUpperCase() || "U"}
+                    </button>
 
                     <AnimatePresence>
                         {showProfile && (
                             <motion.div
-                                initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                                animate={{ opacity: 1, y: 10, scale: 1 }}
-                                exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                                transition={{ duration: 0.2 }}
-                                className='absolute right-0 mt-4 w-52
-                                    rounded-2xl
-                                    bg-[#121216] backdrop-blur-xl
-                                    border border-white/[0.1]
-                                    shadow-[0_20px_50px_rgba(0,0,0,0.8)]
-                                    p-3 text-white z-50'
+                                initial={{ opacity: 0, y: 6 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 6 }}
+                                transition={{ duration: 0.15 }}
+                                className='absolute right-0 mt-2 w-48 rounded-xl
+                                    bg-[#0c0c0c] border border-zinc-800
+                                    shadow-2xl p-1.5 text-white z-50'
                             >
-                                <MenuItem text="History" onClick={() => { setShowProfile(false); navigate("/history") }} />
-                                <div className="h-px bg-white/[0.08] my-1" />
-                                <MenuItem text="Sign Out" red onClick={handleSignOut} />
+                                <button
+                                    onClick={() => { setShowProfile(false); navigate("/history") }}
+                                    className='w-full text-left px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-lg transition-colors cursor-pointer'
+                                >
+                                    📚 Saved Notes
+                                </button>
+                                <div className="h-px bg-zinc-800/80 my-1" />
+                                <button
+                                    onClick={handleSignOut}
+                                    className='w-full text-left px-3 py-2 text-xs font-medium text-red-400 hover:bg-red-500/10 rounded-lg transition-colors cursor-pointer'
+                                >
+                                    Sign Out
+                                </button>
                             </motion.div>
                         )}
                     </AnimatePresence>
                 </div>
             </div>
-        </motion.div>
-    )
-}
-
-function MenuItem({ onClick, text, red }) {
-    return (
-        <div
-            onClick={onClick}
-            className={`
-                w-full text-left px-4 py-2.5 text-xs font-medium cursor-pointer
-                transition-colors rounded-lg
-                ${red
-                    ? "text-red-400 hover:bg-red-500/10"
-                    : "text-gray-300 hover:bg-white/[0.06]"
-                }
-            `}
-        >
-            {text}
-        </div>
+        </nav>
     )
 }
 

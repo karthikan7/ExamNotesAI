@@ -1,5 +1,4 @@
 import React from 'react'
-import { motion } from "motion/react"
 import logo from "../assets/logo.png"
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -22,65 +21,54 @@ function Footer() {
     }
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className='z-10 mx-6 mb-6 mt-24
-                rounded-2xl
-                bg-white/[0.02] backdrop-blur-xl
-                border border-white/[0.07]
-                px-8 py-8
-                shadow-[0_8px_32px_rgba(0,0,0,0.6)]'
-        >
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-8 items-start'>
-                <div className="flex flex-col gap-3">
-                    <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/")}>
-                        <img src={logo} alt="logo" className='h-8 w-8 object-contain' />
-                        <span className="text-lg font-semibold text-white">
-                            ExamNotes <span className="text-indigo-400">AI</span>
+        <footer className='w-full bg-[#000000] border-t border-zinc-800/80 px-6 py-8 mt-20 text-zinc-400'>
+            <div className='max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 items-start'>
+                <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate("/")}>
+                        <img src={logo} alt="logo" className='h-6 w-6 object-contain' />
+                        <span className="text-sm font-semibold text-white">
+                            ExamNotes <span className="text-zinc-500 font-normal">AI</span>
                         </span>
                     </div>
-                    <p className="text-xs text-gray-400 max-w-sm leading-relaxed">
+                    <p className="text-xs text-zinc-500 max-w-sm leading-relaxed mt-1">
                         ExamNotes AI helps students generate exam-focused notes,
-                        revision material, diagrams, and printable PDFs using AI.
+                        revision cheat sheets, diagrams, and printable PDFs using AI.
                     </p>
                 </div>
 
-                <div className='text-center md:text-left'>
-                    <h1 className='text-xs font-semibold text-gray-300 uppercase tracking-wider mb-3'>Quick Links</h1>
-                    <ul className='space-y-2 text-xs'>
-                        <li onClick={() => navigate("/notes")} className='text-gray-400 hover:text-white transition-colors cursor-pointer'>
+                <div className='text-left'>
+                    <h1 className='text-xs font-semibold text-white uppercase tracking-wider mb-2 font-mono'>Quick Links</h1>
+                    <ul className='space-y-1.5 text-xs'>
+                        <li onClick={() => navigate("/notes")} className='text-zinc-400 hover:text-white transition-colors cursor-pointer'>
                             Generate Notes
                         </li>
-                        <li onClick={() => navigate("/history")} className='text-gray-400 hover:text-white transition-colors cursor-pointer'>
-                            History
+                        <li onClick={() => navigate("/history")} className='text-zinc-400 hover:text-white transition-colors cursor-pointer'>
+                            Saved Notes
                         </li>
-                        <li onClick={() => navigate("/pricing")} className='text-gray-400 hover:text-white transition-colors cursor-pointer'>
+                        <li onClick={() => navigate("/pricing")} className='text-zinc-400 hover:text-white transition-colors cursor-pointer'>
                             Buy Credits
                         </li>
                     </ul>
                 </div>
 
-                <div className='text-center md:text-left'>
-                    <h1 className='text-xs font-semibold text-gray-300 uppercase tracking-wider mb-3'>Account & Support</h1>
-                    <ul className='space-y-2 text-xs'>
+                <div className='text-left'>
+                    <h1 className='text-xs font-semibold text-white uppercase tracking-wider mb-2 font-mono'>Account</h1>
+                    <ul className='space-y-1.5 text-xs'>
                         <li onClick={handleSignOut} className='text-red-400 hover:text-red-300 transition-colors cursor-pointer'>
                             Sign Out
                         </li>
-                        <li className='text-gray-400 hover:text-white transition-colors'>
+                        <li className='text-zinc-500'>
                             support@examnotes.ai
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div className="my-6 h-px bg-white/[0.06]" />
-            <p className='text-center text-xs text-gray-500'>
+            <div className="max-w-6xl mx-auto my-6 h-px bg-zinc-900" />
+            <p className='text-center text-[11px] text-zinc-600'>
                 © {new Date().getFullYear()} ExamNotes AI. All rights reserved.
             </p>
-        </motion.div>
+        </footer>
     )
 }
 

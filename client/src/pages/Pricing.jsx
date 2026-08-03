@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { motion } from "motion/react"
 import axios from 'axios';
 import { serverUrl } from '../App';
 
@@ -27,28 +26,20 @@ function Pricing() {
   }
 
   return (
-    <div className='min-h-screen bg-[#080808] text-white px-6 py-10 relative'
-      style={{
-        backgroundImage: `radial-gradient(ellipse at 50% 20%, rgba(99,102,241,0.08) 0%, transparent 60%)`
-      }}
-    >
+    <div className='min-h-screen bg-[#000000] text-white px-6 py-10'>
       <button
         onClick={() => navigate("/")}
-        className='flex items-center gap-2 text-xs text-gray-400 hover:text-white transition-colors mb-8 cursor-pointer'
+        className='flex items-center gap-2 text-xs text-zinc-400 hover:text-white transition-colors mb-8 cursor-pointer'
       >
         ← Back to Home
       </button>
 
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-12"
-      >
-        <h1 className="text-3xl font-bold tracking-tight text-white">Buy Credits</h1>
-        <p className="text-gray-400 text-sm mt-2">
-          Choose a plan that fits your study & revision needs
+      <div className="text-center mb-12 max-w-xl mx-auto">
+        <h1 className="text-3xl font-bold tracking-tight text-white">Simple, Transparent Pricing</h1>
+        <p className="text-zinc-400 text-xs mt-2 leading-relaxed">
+          Pay only for what you generate. 1 Note Generation = 10 Credits.
         </p>
-      </motion.div>
+      </div>
 
       <div className='max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6'>
         <PricingCard
@@ -56,12 +47,12 @@ function Pricing() {
           price="₹100"
           amount={100}
           credits="50 Credits"
-          description="Perfect for quick revisions"
+          description="5 Note Generations"
           features={[
             "Generate AI notes",
             "Exam-focused answers",
             "Diagram & charts support",
-            "Fast generation"
+            "Instant PDF exports"
           ]}
           selectedPrice={selectedPrice}
           setSelectedPrice={setSelectedPrice}
@@ -76,12 +67,12 @@ function Pricing() {
           price="₹200"
           amount={200}
           credits="120 Credits"
-          description="Best value for students"
+          description="12 Note Generations"
           features={[
             "All Starter features",
-            "More credits per ₹",
-            "Revision mode access",
-            "Priority AI response"
+            "Bonus +20 Free credits",
+            "5-Min Revision mode",
+            "Priority AI generation"
           ]}
           selectedPrice={selectedPrice}
           setSelectedPrice={setSelectedPrice}
@@ -95,12 +86,12 @@ function Pricing() {
           price="₹500"
           amount={500}
           credits="300 Credits"
-          description="For serious exam preparation"
+          description="30 Note Generations"
           features={[
             "Maximum credit value",
-            "Unlimited revisions",
+            "Bonus +100 Free credits",
             "Charts & diagrams",
-            "Ideal for full syllabus"
+            "Full syllabus coverage"
           ]}
           selectedPrice={selectedPrice}
           setSelectedPrice={setSelectedPrice}
@@ -131,40 +122,28 @@ function PricingCard({
   const isPayingThisCard = paying && payingAmount === amount;
 
   return (
-    <motion.div
+    <div
       onClick={() => setSelectedPrice(amount)}
-      whileHover={{ y: -4 }}
       className={`
-        relative cursor-pointer
-        rounded-2xl p-6
-        bg-white/[0.03] backdrop-blur-xl
-        border transition-all duration-300
-        ${isSelected
-          ? "border-indigo-500 shadow-[0_0_30px_rgba(99,102,241,0.2)]"
-          : popular
-          ? "border-indigo-500/40"
-          : "border-white/[0.08] hover:border-white/[0.15]"
+        relative cursor-pointer rounded-xl p-6 bg-[#0c0c0c] border transition-all
+        ${isSelected || popular
+          ? "border-white shadow-xl"
+          : "border-zinc-800 hover:border-zinc-700"
         }
       `}
     >
-      {popular && !isSelected && (
-        <span className='absolute top-4 right-4 text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300'>
+      {popular && (
+        <span className='absolute top-4 right-4 text-[10px] font-mono font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-white text-black'>
           Popular
         </span>
       )}
 
-      {isSelected && (
-        <span className='absolute top-4 right-4 text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-indigo-600 text-white'>
-          Selected
-        </span>
-      )}
-
-      <h2 className='text-lg font-bold text-white'>{title}</h2>
-      <p className='text-xs text-gray-400 mt-1'>{description}</p>
+      <h2 className='text-base font-semibold text-white'>{title}</h2>
+      <p className='text-xs text-zinc-400 mt-1'>{description}</p>
 
       <div className='mt-5 mb-6'>
-        <p className="text-3xl font-extrabold text-white">{price}</p>
-        <p className="text-xs font-semibold text-indigo-400 mt-1">{credits}</p>
+        <p className="text-3xl font-bold text-white">{price}</p>
+        <p className="text-xs font-mono font-medium text-emerald-400 mt-1">{credits}</p>
       </div>
 
       <button
@@ -174,19 +153,19 @@ function PricingCard({
           onBuy(amount)
         }}
         className={`
-          w-full py-2.5 rounded-xl font-semibold text-xs transition-all duration-200 cursor-pointer
+          w-full py-2.5 rounded-lg font-semibold text-xs transition-colors cursor-pointer
           ${isPayingThisCard
-            ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+            ? "bg-zinc-800 text-zinc-500 cursor-not-allowed"
             : isSelected || popular
-            ? "bg-indigo-600 hover:bg-indigo-500 text-white shadow-[0_0_20px_rgba(99,102,241,0.4)]"
-            : "bg-white/[0.08] hover:bg-white/[0.12] text-white border border-white/[0.1]"
+            ? "bg-white text-black hover:bg-zinc-200"
+            : "bg-zinc-900 text-white border border-zinc-800 hover:border-zinc-700"
           }
         `}
       >
-        {isPayingThisCard ? "Redirecting to Stripe..." : "Buy Now"}
+        {isPayingThisCard ? "Redirecting to Stripe..." : "Buy Credits"}
       </button>
 
-      <ul className='mt-6 space-y-2.5 text-xs text-gray-400'>
+      <ul className='mt-6 space-y-2 text-xs text-zinc-400 border-t border-zinc-800/80 pt-4'>
         {features.map((f, i) => (
           <li key={i} className="flex items-center gap-2">
             <span className="text-emerald-400 font-bold">✓</span>
@@ -194,7 +173,7 @@ function PricingCard({
           </li>
         ))}
       </ul>
-    </motion.div>
+    </div>
   )
 }
 

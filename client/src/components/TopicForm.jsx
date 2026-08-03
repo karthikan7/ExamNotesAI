@@ -81,30 +81,13 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
   }, [loading])
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="
-        rounded-2xl
-        bg-white/[0.03] backdrop-blur-xl
-        border border-white/[0.08]
-        shadow-[0_8px_32px_rgba(0,0,0,0.6)]
-        p-8
-        space-y-5
-        text-white
-      "
-    >
+    <div className="rounded-xl bg-[#0c0c0c] border border-zinc-800 p-6 sm:p-8 space-y-5 text-white">
       <div>
-        <label className='block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2'>Topic / Subject</label>
+        <label className='block text-[11px] font-semibold text-zinc-400 uppercase tracking-wider mb-2'>Topic / Subject Name</label>
         <input
           type="text"
-          className='w-full p-3 rounded-xl
-            bg-white/[0.06] backdrop-blur-lg
-            border border-white/[0.12]
-            placeholder-gray-500
-            text-white text-sm
-            focus:outline-none focus:border-indigo-500/60 focus:ring-1 focus:ring-indigo-500/40 transition'
-          placeholder='Enter topic (e.g., Photosynthesis, Newton Laws, Operating Systems)'
+          className='w-full p-3 rounded-lg bg-[#141414] border border-zinc-800 placeholder-zinc-600 text-white text-xs focus:outline-none focus:border-zinc-600 transition-colors'
+          placeholder='Enter topic (e.g. Photosynthesis, Newton Laws, Operating Systems)'
           onChange={(e) => setTopic(e.target.value)}
           value={topic}
         />
@@ -112,15 +95,10 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
 
       <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
         <div>
-          <label className='block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2'>Class / Level</label>
+          <label className='block text-[11px] font-semibold text-zinc-400 uppercase tracking-wider mb-2'>Class / Level</label>
           <input
             type="text"
-            className='w-full p-3 rounded-xl
-              bg-white/[0.06] backdrop-blur-lg
-              border border-white/[0.12]
-              placeholder-gray-500
-              text-white text-sm
-              focus:outline-none focus:border-indigo-500/60 focus:ring-1 focus:ring-indigo-500/40 transition'
+            className='w-full p-3 rounded-lg bg-[#141414] border border-zinc-800 placeholder-zinc-600 text-white text-xs focus:outline-none focus:border-zinc-600 transition-colors'
             placeholder='Class 10, B.Tech, 12th, etc.'
             onChange={(e) => setClassLevel(e.target.value)}
             value={classLevel}
@@ -128,15 +106,10 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
         </div>
 
         <div>
-          <label className='block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2'>Learning For</label>
+          <label className='block text-[11px] font-semibold text-zinc-400 uppercase tracking-wider mb-2'>Learning For</label>
           <input
             type="text"
-            className='w-full p-3 rounded-xl
-              bg-white/[0.06] backdrop-blur-lg
-              border border-white/[0.12]
-              placeholder-gray-500
-              text-white text-sm
-              focus:outline-none focus:border-indigo-500/60 focus:ring-1 focus:ring-indigo-500/40 transition'
+            className='w-full p-3 rounded-lg bg-[#141414] border border-zinc-800 placeholder-zinc-600 text-white text-xs focus:outline-none focus:border-zinc-600 transition-colors'
             placeholder='Board Exam, GATE, Revision, Assignment'
             onChange={(e) => setExamType(e.target.value)}
             value={examType}
@@ -144,92 +117,58 @@ function TopicForm({ setResult, setLoading, loading, setError }) {
         </div>
       </div>
 
-      <div className='flex flex-col md:flex-row gap-6 pt-2'>
+      <div className='flex flex-col md:flex-row gap-6 pt-2 border-t border-zinc-800/80'>
         <Toggle label="Exam Revision Mode" checked={revisionMode} onChange={() => setRevisionMode(!revisionMode)} />
-        <Toggle
-          label="Include Diagram"
-          checked={includeDiagram}
-          onChange={() => setIncludeDiagram(!includeDiagram)}
-        />
-        <Toggle
-          label="Include Charts"
-          checked={includeChart}
-          onChange={() => setIncludeChart(!includeChart)}
-        />
+        <Toggle label="Include Diagram" checked={includeDiagram} onChange={() => setIncludeDiagram(!includeDiagram)} />
+        <Toggle label="Include Charts" checked={includeChart} onChange={() => setIncludeChart(!includeChart)} />
       </div>
 
-      <motion.button
+      <button
         onClick={handleSubmit}
-        whileHover={!loading ? { scale: 1.02 } : {}}
-        whileTap={!loading ? { scale: 0.97 } : {}}
         disabled={loading}
         className={`
-          w-full mt-4
-          py-3 rounded-xl
-          font-semibold text-xs uppercase tracking-wider
-          flex items-center justify-center gap-3
-          transition-all duration-200 cursor-pointer
+          w-full mt-4 py-3 rounded-lg font-semibold text-xs transition-colors cursor-pointer
           ${loading
-            ? "bg-gray-800 text-gray-500 cursor-not-allowed border border-white/[0.05]"
-            : "bg-indigo-600 hover:bg-indigo-500 text-white shadow-[0_0_25px_rgba(99,102,241,0.3)]"
+            ? "bg-zinc-800 text-zinc-500 cursor-not-allowed border border-zinc-800"
+            : "bg-white text-black hover:bg-zinc-200 shadow-sm"
           }
         `}
       >
-        {loading ? "Generating Notes..." : "✨ Generate AI Notes"}
-      </motion.button>
+        {loading ? "Generating Notes..." : "Generate AI Notes"}
+      </button>
 
       {loading && (
         <div className='mt-4 space-y-2'>
-          <div className='w-full h-2 rounded-full bg-white/[0.1] overflow-hidden'>
+          <div className='w-full h-1.5 rounded-full bg-zinc-800 overflow-hidden'>
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
               transition={{ ease: "easeOut", duration: 0.6 }}
-              className='h-full bg-gradient-to-r from-indigo-500 via-violet-500 to-emerald-400'
+              className='h-full bg-white'
             />
           </div>
 
-          <div className='flex justify-between text-xs text-gray-400'>
+          <div className='flex justify-between text-xs text-zinc-400'>
             <span>{progressText}</span>
             <span>{progress}%</span>
           </div>
-          <p className='text-[11px] text-gray-500 text-center'>
-            This may take up to 2–5 minutes. Please don’t close or refresh the page.
-          </p>
         </div>
       )}
-    </motion.div>
+    </div>
   )
 }
 
 function Toggle({ label, checked, onChange }) {
   return (
     <div className='flex items-center gap-3 cursor-pointer select-none' onClick={onChange}>
-      <motion.div
-        animate={{
-          backgroundColor: checked
-            ? "rgba(99,102,241,0.5)"
-            : "rgba(255,255,255,0.1)"
-        }}
-        transition={{ duration: 0.25 }}
-        className='relative w-11 h-6 rounded-full
-          border border-white/[0.15]
-          backdrop-blur-lg'
+      <div
+        className={`relative w-9 h-5 rounded-full transition-colors ${checked ? "bg-white" : "bg-zinc-800 border border-zinc-700"}`}
       >
-        <motion.div
-          layout
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
-          className='absolute top-0.5
-            h-5 w-5 rounded-full
-            bg-white
-            shadow-md'
-          style={{
-            left: checked ? "1.35rem" : "0.2rem",
-          }}
+        <div
+          className={`absolute top-0.5 h-4 w-4 rounded-full transition-transform ${checked ? "translate-x-4 bg-black" : "translate-x-0.5 bg-zinc-400"}`}
         />
-      </motion.div>
-
-      <span className={`text-xs font-medium transition-colors ${checked ? "text-indigo-300" : "text-gray-400"}`}>
+      </div>
+      <span className={`text-xs font-medium ${checked ? "text-white" : "text-zinc-400"}`}>
         {label}
       </span>
     </div>

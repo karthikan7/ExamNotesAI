@@ -10,24 +10,24 @@ function Sidebar({ result }) {
     }
 
     return (
-        <div className='bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-white/[0.08] p-5 space-y-6 text-white'>
-            <div className='flex items-center gap-2 border-b border-white/[0.08] pb-3'>
-                <span className='text-lg'>📌</span>
-                <h3 className='text-sm font-bold text-indigo-400'>
-                    Quick Exam View
+        <div className='bg-[#0c0c0c] rounded-xl border border-zinc-800 p-4 space-y-5 text-white'>
+            <div className='flex items-center gap-2 border-b border-zinc-800 pb-3'>
+                <span className='text-sm'>📌</span>
+                <h3 className='text-xs font-bold text-white uppercase tracking-wider font-mono'>
+                    Exam Summary
                 </h3>
             </div>
 
             <section>
-                <p className='text-xs font-semibold text-gray-300 mb-3'>
-                    ⭐ Sub Topics (Priority Wise)
+                <p className='text-xs font-semibold text-zinc-400 mb-2'>
+                    Sub Topics (Priority)
                 </p>
                 {Object.entries(result.subTopics).map(([star, topics]) => (
-                    <div key={star} className='mb-2.5 rounded-xl bg-white/[0.02] border border-white/[0.06] p-3'>
-                        <p className='text-xs font-semibold text-amber-400 mb-1'>
+                    <div key={star} className='mb-2 rounded-lg bg-[#141414] border border-zinc-800 p-2.5'>
+                        <p className='text-[11px] font-semibold text-emerald-400 mb-1 font-mono'>
                             {star} Priority
                         </p>
-                        <ul className='list-disc ml-4 text-[11px] text-gray-300 space-y-0.5'>
+                        <ul className='list-disc ml-4 text-[11px] text-zinc-300 space-y-0.5'>
                             {topics.map((t, i) => (
                                 <li key={i}>{t}</li>
                             ))}
@@ -36,49 +36,36 @@ function Sidebar({ result }) {
                 ))}
             </section>
 
-            <section className='rounded-xl bg-white/[0.02] border border-white/[0.06] p-3 space-y-3'>
+            <section className='rounded-lg bg-[#141414] border border-zinc-800 p-3 space-y-3'>
                 <div>
-                    <p className='text-xs font-semibold text-gray-300 mb-1'>
-                        🔥 Exam Importance
+                    <p className='text-xs font-semibold text-zinc-400 mb-1'>
+                        Exam Importance
                     </p>
-                    <span className='text-amber-400 font-bold text-xs'>
+                    <span className='text-emerald-400 font-bold text-xs font-mono'>
                         {result.importance}
                     </span>
                 </div>
 
                 <div>
-                    <p className='text-xs font-semibold text-gray-300 mb-2'>
-                        ❓ Important Questions
+                    <p className='text-xs font-semibold text-zinc-400 mb-2'>
+                        Quick Questions
                     </p>
 
-                    <div className='mb-2.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 p-2.5'>
-                        <p className='text-[11px] font-semibold text-indigo-300 mb-1'>
-                            Short Questions
-                        </p>
-                        <ul className='list-disc ml-4 text-[11px] text-gray-300 space-y-0.5'>
+                    <div className='mb-2 rounded-lg bg-[#1a1a1a] border border-zinc-800 p-2'>
+                        <p className='text-[10px] font-mono text-zinc-400 mb-1'>SHORT QUESTIONS</p>
+                        <ul className='list-disc ml-4 text-[11px] text-zinc-300 space-y-0.5'>
                             {result.questions.short.map((t, i) => (
                                 <li key={i}>{t}</li>
                             ))}
                         </ul>
                     </div>
 
-                    <div className='mb-2.5 rounded-lg bg-violet-500/10 border border-violet-500/20 p-2.5'>
-                        <p className='text-[11px] font-semibold text-violet-300 mb-1'>
-                            Long Questions
-                        </p>
-                        <ul className='list-disc ml-4 text-[11px] text-gray-300 space-y-0.5'>
+                    <div className='rounded-lg bg-[#1a1a1a] border border-zinc-800 p-2'>
+                        <p className='text-[10px] font-mono text-zinc-400 mb-1'>LONG QUESTIONS</p>
+                        <ul className='list-disc ml-4 text-[11px] text-zinc-300 space-y-0.5'>
                             {result.questions.long.map((t, i) => (
                                 <li key={i}>{t}</li>
                             ))}
-                        </ul>
-                    </div>
-
-                    <div className='rounded-lg bg-cyan-500/10 border border-cyan-500/20 p-2.5'>
-                        <p className='text-[11px] font-semibold text-cyan-300 mb-1'>
-                            Diagram Question
-                        </p>
-                        <ul className='list-disc ml-4 text-[11px] text-gray-300'>
-                            <li>{result.questions.diagram}</li>
                         </ul>
                     </div>
                 </div>

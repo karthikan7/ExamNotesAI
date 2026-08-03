@@ -6,32 +6,32 @@ import { downloadPdf } from '../services/api';
 
 const markDownComponent = {
     h1: ({ children }) => (
-        <h1 className="text-xl font-bold text-indigo-400 mt-6 mb-3 border-b border-white/[0.1] pb-2">
+        <h1 className="text-lg font-bold text-white mt-6 mb-3 border-b border-zinc-800 pb-2">
             {children}
         </h1>
     ),
     h2: ({ children }) => (
-        <h2 className="text-lg font-semibold text-violet-300 mt-5 mb-2">
+        <h2 className="text-base font-semibold text-zinc-200 mt-5 mb-2">
             {children}
         </h2>
     ),
     h3: ({ children }) => (
-        <h3 className="text-base font-semibold text-gray-200 mt-4 mb-2">
+        <h3 className="text-sm font-semibold text-zinc-300 mt-4 mb-2">
             {children}
         </h3>
     ),
     p: ({ children }) => (
-        <p className="text-gray-300 leading-relaxed text-xs mb-3">
+        <p className="text-zinc-300 leading-relaxed text-xs mb-3">
             {children}
         </p>
     ),
     ul: ({ children }) => (
-        <ul className="list-disc ml-5 space-y-1 text-xs text-gray-300">
+        <ul className="list-disc ml-5 space-y-1 text-xs text-zinc-300">
             {children}
         </ul>
     ),
     li: ({ children }) => (
-        <li className="marker:text-indigo-400">{children}</li>
+        <li className="marker:text-zinc-500">{children}</li>
     ),
 }
 
@@ -50,28 +50,28 @@ function FinalResult({ result }) {
 
     return (
         <div className='p-2 space-y-8 text-white'>
-            <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-white/[0.08] pb-4'>
-                <h2 className='text-2xl font-bold bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent'>
-                    📘 Generated AI Notes
+            <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-zinc-800 pb-4'>
+                <h2 className='text-xl font-bold text-white tracking-tight'>
+                    📘 Generated Notes
                 </h2>
 
-                <div className='flex gap-3'>
+                <div className='flex gap-2.5'>
                     <button
                         onClick={() => setQuickRevision(!quickRevision)}
                         className={`
-                            px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer
+                            px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer
                             ${quickRevision
-                                ? "bg-emerald-500 text-white shadow-[0_0_15px_rgba(16,185,129,0.3)]"
-                                : "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 hover:bg-emerald-500/20"
+                                ? "bg-emerald-500 text-black"
+                                : "bg-zinc-900 text-zinc-300 border border-zinc-800 hover:border-zinc-700"
                             }
                         `}
                     >
-                        {quickRevision ? "Exit Revision Mode" : "⚡ Quick Revision (5 min)"}
+                        {quickRevision ? "Exit Revision Mode" : "⚡ 5-Min Revision Mode"}
                     </button>
 
                     <button
                         onClick={() => downloadPdf(result)}
-                        className='px-3.5 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-lg shadow-indigo-600/20 cursor-pointer'
+                        className='px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white text-black hover:bg-zinc-200 transition-colors shadow-sm cursor-pointer'
                     >
                         ⬇️ Download PDF
                     </button>
@@ -80,13 +80,13 @@ function FinalResult({ result }) {
 
             {!quickRevision && (
                 <section>
-                    <SectionHeader icon="⭐" title="Sub Topics" color="indigo" />
+                    <SectionHeader title="Sub Topics (Priority Order)" />
                     {Object.entries(result.subTopics).map(([star, topics]) => (
-                        <div key={star} className='mb-3'>
-                            <p className='font-semibold text-xs text-indigo-400 mb-1'>
+                        <div key={star} className='mb-3 p-3 rounded-lg bg-[#141414] border border-zinc-800/80'>
+                            <p className='font-semibold text-xs text-emerald-400 mb-1 font-mono'>
                                 {star} Priority
                             </p>
-                            <ul className='list-disc ml-5 text-xs text-gray-300 space-y-0.5'>
+                            <ul className='list-disc ml-5 text-xs text-zinc-300 space-y-0.5'>
                                 {topics.map((t, i) => (
                                     <li key={i}>{t}</li>
                                 ))}
@@ -98,8 +98,8 @@ function FinalResult({ result }) {
 
             {!quickRevision && (
                 <section>
-                    <SectionHeader icon="📝" title="Detailed Notes" color="purple" />
-                    <div className='bg-white/[0.02] border border-white/[0.08] rounded-2xl p-5'>
+                    <SectionHeader title="Detailed Notes" />
+                    <div className='bg-[#121212] border border-zinc-800 rounded-xl p-5'>
                         <ReactMarkdown components={markDownComponent}>
                             {result.notes}
                         </ReactMarkdown>
@@ -108,11 +108,11 @@ function FinalResult({ result }) {
             )}
 
             {quickRevision && (
-                <section className='rounded-2xl bg-emerald-500/10 border border-emerald-500/20 p-5'>
-                    <h3 className='font-bold text-emerald-400 mb-3 text-sm'>
+                <section className='rounded-xl bg-[#121212] border border-emerald-500/30 p-5'>
+                    <h3 className='font-semibold text-emerald-400 mb-3 text-xs tracking-wider uppercase font-mono'>
                         ⚡ Exam Quick Revision Points
                     </h3>
-                    <ul className='list-disc ml-5 space-y-1.5 text-xs text-gray-200'>
+                    <ul className='list-disc ml-5 space-y-1.5 text-xs text-zinc-200'>
                         {result.revisionPoints.map((p, i) => (
                             <li key={i}>{p}</li>
                         ))}
@@ -122,53 +122,41 @@ function FinalResult({ result }) {
 
             {result.diagram?.data && (
                 <section>
-                    <SectionHeader icon="📊" title="Diagram" color="cyan" />
-                    <div className='bg-white/90 rounded-2xl p-4'>
+                    <SectionHeader title="Visual Diagram (Flowchart)" />
+                    <div className='bg-white rounded-xl p-4'>
                         <MermaidSetup diagram={result.diagram?.data} />
                     </div>
-                    <p className="mt-2 text-[11px] text-gray-500 italic">
-                        ℹ️ Take a screenshot to save this diagram for your offline revision.
-                    </p>
                 </section>
             )}
 
             {result.charts?.length > 0 && (
                 <section>
-                    <SectionHeader icon="📈" title="Visual Charts" color="indigo" />
-                    <div className='bg-white/90 rounded-2xl p-4'>
+                    <SectionHeader title="Analytics & Data Charts" />
+                    <div className='bg-white rounded-xl p-4'>
                         <RechartSetUp charts={result.charts} />
                     </div>
-                    <p className="mt-2 text-[11px] text-gray-500 italic">
-                        ℹ️ Take a screenshot to save this chart for future reference.
-                    </p>
                 </section>
             )}
 
-            {result.charts && result.charts.length === 0 && (
-                <p className="text-xs text-gray-500 italic">
-                    📉 Charts are not relevant for this topic.
-                </p>
-            )}
-
             <section>
-                <SectionHeader icon="❓" title="Important Questions" color="rose" />
+                <SectionHeader title="Important Exam Questions" />
 
-                <p className='font-semibold text-xs text-gray-300 mb-1'>Short Answer Questions:</p>
-                <ul className='list-disc ml-5 text-xs text-gray-400 space-y-1 mb-4'>
+                <p className='font-semibold text-xs text-zinc-400 mb-1 uppercase font-mono'>Short Questions:</p>
+                <ul className='list-disc ml-5 text-xs text-zinc-300 space-y-1 mb-4'>
                     {result.questions.short.map((q, i) => (
                         <li key={i}>{q}</li>
                     ))}
                 </ul>
 
-                <p className='font-semibold text-xs text-gray-300 mb-1'>Long Answer Questions:</p>
-                <ul className='list-disc ml-5 text-xs text-gray-400 space-y-1 mb-4'>
+                <p className='font-semibold text-xs text-zinc-400 mb-1 uppercase font-mono'>Long Questions:</p>
+                <ul className='list-disc ml-5 text-xs text-zinc-300 space-y-1 mb-4'>
                     {result.questions.long.map((q, i) => (
                         <li key={i}>{q}</li>
                     ))}
                 </ul>
 
-                <p className='font-semibold text-xs text-gray-300 mb-1'>Diagram Question:</p>
-                <ul className='list-disc ml-5 text-xs text-gray-400'>
+                <p className='font-semibold text-xs text-zinc-400 mb-1 uppercase font-mono'>Diagram Question:</p>
+                <ul className='list-disc ml-5 text-xs text-zinc-300'>
                     <li>{result.questions.diagram}</li>
                 </ul>
             </section>
@@ -176,23 +164,10 @@ function FinalResult({ result }) {
     )
 }
 
-function SectionHeader({ icon, title, color }) {
-    const colors = {
-        indigo: "bg-indigo-500/10 border-indigo-500/20 text-indigo-300",
-        purple: "bg-purple-500/10 border-purple-500/20 text-purple-300",
-        blue: "bg-blue-500/10 border-blue-500/20 text-blue-300",
-        green: "bg-emerald-500/10 border-emerald-500/20 text-emerald-300",
-        cyan: "bg-cyan-500/10 border-cyan-500/20 text-cyan-300",
-        rose: "bg-rose-500/10 border-rose-500/20 text-rose-300",
-    };
+function SectionHeader({ title }) {
     return (
-        <div className={`
-            mb-4 px-4 py-2 rounded-xl border
-            ${colors[color]}
-            font-semibold text-xs flex items-center gap-2
-        `}>
-            <span>{icon}</span>
-            <span>{title}</span>
+        <div className='mb-4 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 font-semibold text-xs text-zinc-300'>
+            {title}
         </div>
     )
 }
